@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="userLoginForm" type="Login.UserLoginForm" />
+		<form-bean name="searchForm" type="search.SearchForm" />
+		<form-bean name="EditForm" type="Edit.EditForm" />
+	</form-beans>
+	<action-mappings>
+		<action name="userLoginForm" path="/register1" type="Login.UserLoginAction"
+			scope="request" validate="false">
+			<forward name="failure" path="/login.jsp" />
+			<forward name="success" path="/search.do?start=0" />
+		</action>
+
+		<action path="/search" type="search.CustomerAction" scope="request">
+			<forward name="search" path="/search.jsp" />
+		</action>
+		<action path="/page" type="search.PaginateAction" scope="request">
+			<forward name="page" path="/search.jsp" />
+		</action>
+		<action path="/delete" type="search.DeletedAction" scope="request">
+			<forward name="page" path="/search.jsp" />
+		</action>
+		<action name="searchForm" path="/processSearch" type="search.SearchAction"
+			scope="request" validate="false">
+			<forward name="result" path="/search.jsp" />
+		</action>
+		<action name="EditForm" path="/processEdit" type="Edit.EditAction"
+			scope="request" validate="false">
+			<forward name="result" path="/search.do?start=0" />
+		</action>
+		<action name="EditForm" path="/processAdd" type="Edit.addAction"
+			scope="request" validate="false">
+			<forward name="result" path="/search.do?start=0" />
+		</action>
+		<action path="/edit" type="Edit.RedirectEditAction" scope="request">
+			<forward name="edit" path="/edit.jsp" />
+		</action>
+		<action path="/add" type="Edit.RedirectAddAction" scope="request">
+			<forward name="add" path="/edit.jsp" />
+		</action>
+	</action-mappings>
+
+	<message-resources parameter="WEB-INF/src/java/resources/application.properties" />
+
+</struts-config>
